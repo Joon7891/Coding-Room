@@ -1,0 +1,11 @@
+#my-video-container {
+	margin: 0px auto;
+	width: 500px;
+	height: 375px;
+	border: 10px #333 solid;
+}
+#my-video {
+	width: 480px;
+	height: 355px;
+	background-color: #666;
+}
