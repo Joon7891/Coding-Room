@@ -11,19 +11,22 @@ const SERVER_NAME = 'Server';
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
-console.log(io);
 app.use(express.static(path.join(__dirname, 'public')));
 
 // When a client connects
 io.on('connection', socket => {
-    console.log("Added client");
-
+    const SERVER_NAME = 'Server';
     socket.on('join-room', ( { id, name } ) => {
-        console.log(`${name} has joined.`);
+        console.log(`[${name} Joined]`);
 
         socket.join(id);
-        io.in(id).emit('message', formatMessage(SERVER_NAME, `${name} has joined.`));
+        io.in(id).emit('message', formatMessage(id, SERVER_NAME, `${name} has joined.`));
     })
+
+    socket.on('message', msg => {
+        console.log(msg);
+        io.in(msg.id).emit('message', formatMessage(msg.id, msg.author, msg.text));
+    });
 });
 
 // Setting up port listener.
