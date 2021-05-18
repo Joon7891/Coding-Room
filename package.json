@@ -1,28 +1,22 @@
 {
   "name": "coding-room",
   "version": "1.0.0",
-  "description": "Video chat website with embedded shared code editor and compiler.",
-  "main": "server.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node server",
-    "dev": "nodemon server"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Joon7891/Coding-Interview-Chat.git"
+    "url": "git+https://github.com/Joon7891/Coding-Room.git"
   },
   "author": "Joon Song",
-  "license": "MIT",
+  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Joon7891/Coding-Interview-Chat/issues"
+    "url": "https://github.com/Joon7891/Coding-Room/issues"
   },
-  "homepage": "https://github.com/Joon7891/Coding-Interview-Chat#readme",
+  "homepage": "https://github.com/Joon7891/Coding-Room#readme",
+  "description": "",
   "dependencies": {
-    "express": "^4.17.1",
-    "moment": "^2.26.0",
-    "socket.io": "^2.4.0"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.4"
+    "shelljs": "^0.8.4"
   }
 }
