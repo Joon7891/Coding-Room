@@ -1,9 +1,21 @@
-import "./App.css";
+import React, { useEffect, useRef, useState } from "react";
+import styled from "styled-components";
+import { readFile } from "../utility/fileManager";
 
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
-import { dark, atomDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { dark, a11yDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import "./CodeCanvas.css";
 
-function App() {
+import { Input } from "antd";
+const { TextArea } = Input;
+
+const MainContainer = styled.div`
+  width: 100vw;
+  height: 100vh;
+  background-color: lightblue;
+`;
+
+function CodeCanvas() {
   const codeString = `'use strict'; 
   /*
    * Quick and dirty script to build javascript stylesheets from highlight.js css
@@ -136,18 +148,60 @@ function App() {
     );
   }`;
 
+  const [code, setCode] = useState("");
+  const codeRef = useRef<HTMLTextAreaElement>(null);
+
+  const inputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setCode(event.target.value);
+    // console.log(event.target.value);
+  };
+
+  useEffect(() => {
+    const highlightedCode = document.querySelector("pre > code");
+
+    // Creating cursor element to insert
+    const cursor = document.createElement("span");
+    cursor.className = "cursor";
+
+    if (highlightedCode !== null && highlightedCode.childNodes.length > 0) {
+      const index = highlightedCode.children.length - 1;
+
+      console.log(
+        "children",
+        highlightedCode.childNodes,
+        highlightedCode.children
+      );
+      let node = highlightedCode.children[0];
+      node.innerHTML = `${node.textContent}${cursor.outerHTML}`;
+      highlightedCode?.replaceChild(
+        node as Node,
+        highlightedCode.childNodes[0]
+      );
+    }
+
+    return () => {};
+  }, [code]);
+
   return (
-    <div className="App">
-      <SyntaxHighlighter
-        language="javascript"
-        style={atomDark}
-        showLineNumbers={true}
-        startingLineNumber={2}
-      >
-        {codeString}
+    <MainContainer>
+      <TextArea
+        onChange={inputChange}
+        ref={codeRef}
+        rows={10}
+        style={{ width: "100vw" }}
+      ></TextArea>
+
+      <SyntaxHighlighter language="javascript" style={a11yDark}>
+        {code}
       </SyntaxHighlighter>
-    </div>
+      <span>
+        <span className="cursorDisplay">
+          a<span className="cursor" />n
+        </span>
+        b
+      </span>
+    </MainContainer>
   );
 }
 
-export default App;
+export default CodeCanvas;

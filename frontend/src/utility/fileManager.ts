@@ -1,24 +1,16 @@
-const fs = require("fs");
-const path = require("path");
-
-const FILE_TYPE = {
-  C: "c",
-  CPP: "cpp",
-  JAVA: "java",
-  PYTHON: "python",
-  JAVASCRIPT: "javascript",
-};
+import fs from 'fs'
+import path from 'path'
 
 // Base Url from which assets will be loaded
-const baseUrl = "../assets/";
+const baseUrl : string = '../assets/';
 
 // Function to read a file from path; prepends the baseUrl to the filePath. Returns a promise
-const readFile = (filePath) => {
+const readFile = (filePath : string) => {
   const absolutePath = path.join(__dirname, baseUrl, filePath);
 
   // Reading file and returning string representation of file; if an error occurs, it is thrown to caller
   return new Promise((resolve, reject) => {
-    fs.readFile(absolutePath, (error, fileData) => {
+    fs.readFile(absolutePath, (error : any, fileData : any) => {
       if (error) {
         reject(error);
         return;
@@ -29,11 +21,6 @@ const readFile = (filePath) => {
   });
 };
 
-module.exports = {
-  readFile,
-  FILE_TYPE,
-};
-
-readFile("logo.txt").then((file) => {
-  console.log(file);
-});
+export {
+  readFile
+}
