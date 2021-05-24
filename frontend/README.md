@@ -17,7 +17,7 @@ npm run build
 ## To Do
 
 - [] Finish Editing Platform for Code Canvas
-- [] Abstract Editing Platform to make syncing easier
+- [] Abstract Editing Platforms to make syncing easier
 - [] Setup Webpages
 - [] File System + Sharing
 
